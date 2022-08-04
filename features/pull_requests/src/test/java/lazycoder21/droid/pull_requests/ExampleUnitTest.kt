@@ -1,4 +1,4 @@
-package lazycoder21.droid.features
+package lazycoder21.droid.pull_requests
 
 import org.junit.Test
 

@@ -10,3 +10,4 @@ rootProject.name = "Github"
 include ':app'
 include ':core'
 include ':features'
+include ':features:pull_requests'
