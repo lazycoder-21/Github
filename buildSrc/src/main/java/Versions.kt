@@ -15,4 +15,6 @@ internal object Versions {
     const val NAVIGATION = "2.4.2"
     const val COMPOSE_ACTIVITY = "1.4.0"
     const val COMPOSE_VIEWMODEL = "2.4.0"
+    const val GLIDE = "4.13.2"
+    const val CONSTRAINT_LAYOUT = "2.1.4"
 }
