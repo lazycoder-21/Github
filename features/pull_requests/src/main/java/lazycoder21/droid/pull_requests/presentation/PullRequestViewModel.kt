@@ -19,17 +19,16 @@ class PullRequestViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _pullRequests = MutableLiveData<Resource<List<GithubPullRequest>>>()
-    private val pullRequest: LiveData<Resource<List<GithubPullRequest>>> = _pullRequests
+    val pullRequest: LiveData<Resource<List<GithubPullRequest>>> = _pullRequests
 
     fun fetchPullRequest(
         userId: String = DefaultValues.USER_ID,
         repositoryName: String = DefaultValues.REPO_NAME,
         status: GithubPRStatus = GithubPRStatus.Default,
-    ) {
-        viewModelScope.launch {
-            useCase.fetchPullRequests(userId, repositoryName, status).collect {
-                _pullRequests.postValue(it)
-            }
+    ) = viewModelScope.launch {
+        useCase.fetchPullRequests(userId, repositoryName, status).collect {
+            _pullRequests.value = it
         }
     }
+
 }

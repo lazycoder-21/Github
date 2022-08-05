@@ -3,7 +3,6 @@ package lazycoder21.droid.common.utils
 import android.content.Context
 import android.view.View
 import android.widget.Toast
-import lazycoder21.droid.common.enitity.StringHandler
 
 fun View.show() {
     visibility = View.VISIBLE
@@ -17,6 +16,6 @@ fun View.showIf(it: Boolean) {
     if (it) show() else hide()
 }
 
-fun Context.showErrorMessage(message: StringHandler) {
-    Toast.makeText(this, message.asString(this), Toast.LENGTH_SHORT).show()
+fun Context.showErrorMessage(message: String) {
+    Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
 }

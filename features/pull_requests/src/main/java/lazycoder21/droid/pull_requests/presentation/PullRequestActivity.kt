@@ -6,7 +6,10 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import dagger.hilt.android.AndroidEntryPoint
+import lazycoder21.droid.common.enitity.Resource
+import lazycoder21.droid.common.utils.showErrorMessage
 import lazycoder21.droid.pull_requests.R
+import lazycoder21.droid.pull_requests.domain.model.GithubPullRequest
 
 @AndroidEntryPoint
 class PullRequestActivity : AppCompatActivity() {
@@ -17,7 +20,35 @@ class PullRequestActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pull_request)
 
+        observeLiveData()
+        loadData()
+    }
+
+    private fun loadData() {
         viewModel.fetchPullRequest()
+    }
+
+    private fun observeLiveData() {
+        viewModel.pullRequest.observe(this) {
+            when (it) {
+                is Resource.Error -> showErrorMessage(it.message.asString(this))
+                is Resource.Loading -> updateLoadingState(it.isLoading)
+                is Resource.Success -> prListFetched(it.data)
+            }
+        }
+    }
+
+    private fun prListFetched(data: List<GithubPullRequest>) {
+        showErrorMessage(data.size.toString())
+    }
+
+    private fun updateLoadingState(isLoading: Boolean) {
+
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        viewModel.pullRequest.removeObservers(this)
     }
 
     companion object {
