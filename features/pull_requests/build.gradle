@@ -40,10 +40,9 @@ dependencies {
     implementation project(Modules.COMMON)
     implementation Dependencies.COROUTINES
     implementation Dependencies.ACTIVITY_KTX
-    implementation Dependencies.GLIDE
+    implementation Dependencies.MATERIAL
     implementation Dependencies.APP_COMPAT
     implementation Dependencies.VIEW_MODEL
-    annotationProcessor Dependencies.GLIDE_COMPILER
     implementation Dependencies.CORE_KTX
     implementation Dependencies.CONSTRAINT_LAYOUT
     implementation Dependencies.RETROFIT

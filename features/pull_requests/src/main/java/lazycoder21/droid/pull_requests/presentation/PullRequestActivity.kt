@@ -33,13 +33,13 @@ class PullRequestActivity : AppCompatActivity() {
             when (it) {
                 is Resource.Error -> showErrorMessage(it.message.asString(this))
                 is Resource.Loading -> updateLoadingState(it.isLoading)
-                is Resource.Success -> prListFetched(it.data)
+                is Resource.Success -> onSuccessList(it.data)
             }
         }
     }
 
-    private fun prListFetched(data: List<GithubPullRequest>) {
-        showErrorMessage(data.size.toString())
+    private fun onSuccessList(data: List<GithubPullRequest>) {
+
     }
 
     private fun updateLoadingState(isLoading: Boolean) {
