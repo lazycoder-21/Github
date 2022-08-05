@@ -39,6 +39,7 @@ dependencies {
     implementation Dependencies.COROUTINES
     implementation Dependencies.GLIDE
     implementation Dependencies.APP_COMPAT
+    implementation Dependencies.VIEW_MODEL
     annotationProcessor Dependencies.GLIDE_COMPILER
     implementation Dependencies.CORE_KTX
     implementation Dependencies.CONSTRAINT_LAYOUT

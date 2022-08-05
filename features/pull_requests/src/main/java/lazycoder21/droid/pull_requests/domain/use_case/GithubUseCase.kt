@@ -3,6 +3,7 @@ package lazycoder21.droid.pull_requests.domain.use_case
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.onEach
+import lazycoder21.droid.common.constant.DefaultValues
 import lazycoder21.droid.common.enitity.Resource
 import lazycoder21.droid.pull_requests.domain.model.GithubPullRequest
 import lazycoder21.droid.pull_requests.domain.repository.GithubRepository
@@ -14,9 +15,9 @@ class GithubUseCase(
 
     //todo
     suspend fun fetchPullRequests(
-        userId: String,
-        repositoryName: String,
-        status: GithubPRStatus,
+        userId: String = DefaultValues.USER_ID,
+        repositoryName: String = DefaultValues.REPO_NAME,
+        status: GithubPRStatus = GithubPRStatus.Default,
     ): Flow<Resource<List<GithubPullRequest>?>> = flow {
         emit(Resource.Loading(isLoading = true))
 
