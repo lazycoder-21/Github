@@ -29,9 +29,13 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    buildFeatures {
+        viewBinding true
+    }
 }
 
 dependencies {
+    implementation Dependencies.MATERIAL
     implementation Dependencies.COROUTINES
     implementation Dependencies.GLIDE
     annotationProcessor Dependencies.GLIDE_COMPILER

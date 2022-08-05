@@ -4,7 +4,7 @@
 
     <application>
         <activity
-            android:name=".presentation.PullRequestActivity"
+            android:name=".presentation.pr.PullRequestActivity"
             android:exported="true" />
     </application>
 

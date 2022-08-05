@@ -1,4 +1,4 @@
-package lazycoder21.droid.pull_requests.presentation
+package lazycoder21.droid.pull_requests.presentation.pr
 
 import android.app.Activity
 import android.content.Intent
@@ -11,12 +11,15 @@ import lazycoder21.droid.common.utils.showErrorMessage
 import lazycoder21.droid.common.utils.showIf
 import lazycoder21.droid.pull_requests.databinding.ActivityPullRequestBinding
 import lazycoder21.droid.pull_requests.domain.model.GithubPullRequest
+import lazycoder21.droid.pull_requests.presentation.adapter.PullRequestRvAdapter
+import lazycoder21.droid.pull_requests.presentation.adapter.factory.ItemTypeFactory
 
 @AndroidEntryPoint
 class PullRequestActivity : AppCompatActivity() {
 
     private val viewModel: PullRequestViewModel by viewModels()
     private var _binding: ActivityPullRequestBinding? = null
+    private val adapter = PullRequestRvAdapter(ItemTypeFactory())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,8 +27,15 @@ class PullRequestActivity : AppCompatActivity() {
             setContentView(this.root)
         }
 
+        initRecyclerView()
         observeLiveData()
         loadData()
+    }
+
+    private fun initRecyclerView() {
+        _binding?.recyclerView?.apply {
+            adapter = this@PullRequestActivity.adapter
+        }
     }
 
     private fun loadData() {
@@ -42,8 +52,8 @@ class PullRequestActivity : AppCompatActivity() {
         }
     }
 
-    private fun onSuccessList(data: List<GithubPullRequest>) {
-
+    private fun onSuccessList(list: List<GithubPullRequest>) {
+        adapter.clearAndInsertItems(list)
     }
 
     private fun updateLoadingState(isLoading: Boolean) {

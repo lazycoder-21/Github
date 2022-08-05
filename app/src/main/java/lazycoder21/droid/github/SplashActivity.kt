@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import lazycoder21.droid.pull_requests.presentation.PullRequestActivity.Companion.navigateToPullRequestActivity
+import lazycoder21.droid.pull_requests.presentation.pr.PullRequestActivity.Companion.navigateToPullRequestActivity
 
 class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

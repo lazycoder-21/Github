@@ -1,4 +1,4 @@
-package lazycoder21.droid.pull_requests.presentation
+package lazycoder21.droid.pull_requests.presentation.pr
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
