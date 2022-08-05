@@ -1,4 +1,4 @@
-package lazycoder21.droid.githubclosedpr.utils.model
+package lazycoder21.droid.common.enitity
 
 import android.content.Context
 import androidx.annotation.StringRes
