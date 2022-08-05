@@ -2,4 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="lazycoder21.droid.pull_requests">
 
+    <application>
+        <activity
+            android:name=".presentation.PullRequestActivity"
+            android:exported="true" />
+    </application>
+
 </manifest>
