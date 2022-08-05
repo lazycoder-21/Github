@@ -13,10 +13,13 @@ class PullRequestActivity : AppCompatActivity() {
     }
 
     companion object {
-        fun navigate(host: Activity) {
-            host.startActivity(
+        fun Activity.navigateToPullRequestActivity() {
+            val source = this
+            val destination = PullRequestActivity::class.java
+
+            source.startActivity(
                 Intent(
-                    host, PullRequestActivity::class.java
+                    source, destination
                 )
             )
         }

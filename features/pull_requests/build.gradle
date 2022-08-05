@@ -38,9 +38,7 @@ dependencies {
     implementation project(Modules.COMMON)
     implementation Dependencies.COROUTINES
     implementation Dependencies.GLIDE
-    implementation 'androidx.appcompat:appcompat:1.4.2'
-    implementation 'com.google.android.material:material:1.6.1'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation Dependencies.APP_COMPAT
     annotationProcessor Dependencies.GLIDE_COMPILER
     implementation Dependencies.CORE_KTX
     implementation Dependencies.CONSTRAINT_LAYOUT

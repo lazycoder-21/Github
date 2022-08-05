@@ -1,11 +1,11 @@
 package lazycoder21.droid.github
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import lazycoder21.droid.pull_requests.presentation.PullRequestActivity
+import lazycoder21.droid.pull_requests.presentation.PullRequestActivity.Companion.navigateToPullRequestActivity
 
 class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,7 +18,7 @@ class SplashActivity : AppCompatActivity() {
     private fun navigateToPullRequest() {
         lifecycleScope.launch {
             delay(SPLASH_DELAY)
-            PullRequestActivity.navigate(this@SplashActivity)
+            navigateToPullRequestActivity()
         }
     }
 
