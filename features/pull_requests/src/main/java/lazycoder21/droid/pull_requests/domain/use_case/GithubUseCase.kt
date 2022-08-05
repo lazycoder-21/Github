@@ -1,8 +1,6 @@
 package lazycoder21.droid.pull_requests.domain.use_case
 
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.onEach
 import lazycoder21.droid.common.constant.DefaultValues
 import lazycoder21.droid.common.enitity.Resource
 import lazycoder21.droid.pull_requests.domain.model.GithubPullRequest
@@ -18,13 +16,7 @@ class GithubUseCase(
         userId: String = DefaultValues.USER_ID,
         repositoryName: String = DefaultValues.REPO_NAME,
         status: GithubPRStatus = GithubPRStatus.Default,
-    ): Flow<Resource<List<GithubPullRequest>?>> = flow {
-        emit(Resource.Loading(isLoading = true))
-
-        repository.fetchPullRequests(userId, repositoryName, status).onEach {
-            emit(it)
-        }
-
-        emit(Resource.Loading(isLoading = false))
+    ): Flow<Resource<List<GithubPullRequest>>> {
+        return repository.fetchPullRequests(userId, repositoryName, status)
     }
 }

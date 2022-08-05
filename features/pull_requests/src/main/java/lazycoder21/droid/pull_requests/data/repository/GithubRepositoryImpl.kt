@@ -19,13 +19,16 @@ internal class GithubRepositoryImpl(
         userId: String,
         repositoryName: String,
         status: GithubPRStatus,
-    ): Flow<Resource<List<GithubPullRequest>?>> = flow {
+    ): Flow<Resource<List<GithubPullRequest>>> = flow {
+
+        emit(Resource.Loading(isLoading = true))
 
         safeApiCall(block = {
             val data = githubPullRequestApi.fetchPullRequests(userId, repositoryName, status)
+            val body = data.body()
             emit(
-                if (data.isSuccessful) {
-                    Resource.Success(data.body()?.mapToDomain)
+                if (data.isSuccessful && body != null) {
+                    Resource.Success(body.mapToDomain)
                 } else {
                     Resource.Error(data.errorMessage())
                 }
@@ -33,5 +36,7 @@ internal class GithubRepositoryImpl(
         }, error = {
             emit(Resource.Error(it))
         })
+
+        emit(Resource.Loading(isLoading = false))
     }
 }

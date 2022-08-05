@@ -11,5 +11,5 @@ interface GithubRepository {
         userId: String,
         repositoryName: String,
         status: GithubPRStatus,
-    ): Flow<Resource<List<GithubPullRequest>?>>
+    ): Flow<Resource<List<GithubPullRequest>>>
 }
