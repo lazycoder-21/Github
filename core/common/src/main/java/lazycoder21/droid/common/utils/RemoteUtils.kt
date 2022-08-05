@@ -1,7 +1,6 @@
 package lazycoder21.droid.common.utils
 
 import com.google.gson.Gson
-import lazycoder21.droid.common.enitity.Resource
 import lazycoder21.droid.common.enitity.RetrofitErrorMessage
 import lazycoder21.droid.common.enitity.StringHandler
 import okhttp3.OkHttpClient
@@ -51,17 +50,6 @@ suspend inline fun safeApiCall(
         error.invoke(StringHandler.NormalString("Couldn't reach server. Check your internet connection."))
     } catch (e: Exception) {
         error.invoke(StringHandler.NormalString("Something went wrong"))
-    }
-}
-
-suspend fun <T> Response<T>.responseOrError(): Resource<T?> {
-    return if (isSuccessful) {
-        Resource.Success(this.body())
-    } else {
-        val data = Gson().fromJson(
-            errorBody()?.charStream(), RetrofitErrorMessage::class.java
-        )
-        Resource.Error(StringHandler.NormalString(data.message))
     }
 }
 
