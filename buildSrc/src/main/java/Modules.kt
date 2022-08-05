@@ -1,3 +1,4 @@
 object Modules {
-    const val app = "app"
+    const val PULL_REQUESTS = ":features:pull_requests"
+    const val COMMON = ":core:common"
 }

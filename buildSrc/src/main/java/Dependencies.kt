@@ -5,7 +5,7 @@ object Dependencies {
     //lifecycle
     const val VIEW_MODEL = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.LIFECYCLE}"
     const val LIVE_DATA = "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.LIFECYCLE}"
-    const val LIFE_CYCLE_COMMON = "androidx.lifecycle:lifecycle-common-java8:${Versions.LIFECYCLE}"
+    const val LIFE_CYCLE_RUNTIME = "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.LIFECYCLE}"
 
     //google material
     const val MATERIAL = "com.google.android.material:material:${Versions.MATERIAL}"
