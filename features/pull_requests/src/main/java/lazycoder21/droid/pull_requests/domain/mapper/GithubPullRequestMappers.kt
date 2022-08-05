@@ -3,7 +3,7 @@ package lazycoder21.droid.pull_requests.domain.mapper
 import lazycoder21.droid.pull_requests.data.remote.dto.GithubPullRequestDto
 import lazycoder21.droid.pull_requests.domain.model.GithubPullRequest
 
-object GithubItemMappers {
+object GithubPullRequestMappers {
 
     val List<GithubPullRequestDto>.mapToDomain
         get() = map { it.mapToDomain }

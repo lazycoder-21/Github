@@ -8,11 +8,11 @@ import kotlinx.coroutines.launch
 import lazycoder21.droid.common.constant.DefaultValues
 import lazycoder21.droid.common.enitity.Resource
 import lazycoder21.droid.pull_requests.domain.model.GithubPullRequest
-import lazycoder21.droid.pull_requests.domain.use_case.GithubUseCase
+import lazycoder21.droid.pull_requests.domain.use_case.GithubPullRequestUseCase
 import lazycoder21.droid.pull_requests.utils.constants.GithubPRStatus
 
 class PullRequestViewModel(
-    private val useCase: GithubUseCase
+    private val useCase: GithubPullRequestUseCase
 ) : ViewModel() {
 
     private val _pullRequests = MutableLiveData<Resource<List<GithubPullRequest>>>()

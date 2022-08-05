@@ -5,7 +5,7 @@ import lazycoder21.droid.common.enitity.Resource
 import lazycoder21.droid.pull_requests.domain.model.GithubPullRequest
 import lazycoder21.droid.pull_requests.utils.constants.GithubPRStatus
 
-interface GithubRepository {
+interface IGithubPullRequestRepository {
 
     suspend fun fetchPullRequests(
         userId: String,
