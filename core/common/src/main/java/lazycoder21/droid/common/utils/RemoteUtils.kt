@@ -1,6 +1,7 @@
 package lazycoder21.droid.common.utils
 
 import com.google.gson.Gson
+import lazycoder21.droid.common.enitity.Resource
 import lazycoder21.droid.common.enitity.RetrofitErrorMessage
 import lazycoder21.droid.common.enitity.StringHandler
 import okhttp3.OkHttpClient
@@ -41,7 +42,11 @@ suspend inline fun safeApiCall(
     } catch (e: SocketTimeoutException) {
         error.invoke(StringHandler.NormalString("Slow Internet"))
     } catch (e: HttpException) {
-        error.invoke(StringHandler.NormalString(e.localizedMessage ?: "An unexpected error occurred"))
+        error.invoke(
+            StringHandler.NormalString(
+                e.localizedMessage ?: "An unexpected error occurred"
+            )
+        )
     } catch (e: IOException) {
         error.invoke(StringHandler.NormalString("Couldn't reach server. Check your internet connection."))
     } catch (e: Exception) {
@@ -49,13 +54,20 @@ suspend inline fun safeApiCall(
     }
 }
 
-fun <T> Response<T>.response(): T? {
-    return if (isSuccessful) this.body() else null
+suspend fun <T> Response<T>.responseOrError(): Resource<T?> {
+    return if (isSuccessful) {
+        Resource.Success(this.body())
+    } else {
+        val data = Gson().fromJson(
+            errorBody()?.charStream(), RetrofitErrorMessage::class.java
+        )
+        Resource.Error(StringHandler.NormalString(data.message))
+    }
 }
 
-suspend fun <T> Response<T>.errorMessage(): String {
+fun <T> Response<T>.errorMessage(): StringHandler {
     val data = Gson().fromJson(
         this@errorMessage.errorBody()?.charStream(), RetrofitErrorMessage::class.java
     )
-    return data.message
+    return StringHandler.NormalString(data.message)
 }

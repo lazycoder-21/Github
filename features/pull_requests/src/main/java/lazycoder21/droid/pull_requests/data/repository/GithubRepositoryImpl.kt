@@ -3,7 +3,7 @@ package lazycoder21.droid.pull_requests.data.repository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import lazycoder21.droid.common.enitity.Resource
-import lazycoder21.droid.common.utils.response
+import lazycoder21.droid.common.utils.errorMessage
 import lazycoder21.droid.common.utils.safeApiCall
 import lazycoder21.droid.pull_requests.data.remote.GithubPullRequestApi
 import lazycoder21.droid.pull_requests.domain.mapper.GithubItemMappers.mapToDomain
@@ -23,7 +23,13 @@ internal class GithubRepositoryImpl(
 
         safeApiCall(block = {
             val data = githubPullRequestApi.fetchPullRequests(userId, repositoryName, status)
-            emit(Resource.Success(data.response()?.mapToDomain))
+            emit(
+                if (data.isSuccessful) {
+                    Resource.Success(data.body()?.mapToDomain)
+                } else {
+                    Resource.Error(data.errorMessage())
+                }
+            )
         }, error = {
             emit(Resource.Error(it))
         })
