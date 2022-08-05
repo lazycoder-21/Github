@@ -27,7 +27,7 @@ class PullRequestViewModel @Inject constructor(
         status: GithubPRStatus = GithubPRStatus.Default,
     ) {
         viewModelScope.launch {
-            useCase.fetchPullRequests().collect {
+            useCase.fetchPullRequests(userId, repositoryName, status).collect {
                 _pullRequests.postValue(it)
             }
         }
