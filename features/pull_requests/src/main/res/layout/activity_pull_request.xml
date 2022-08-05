@@ -10,6 +10,7 @@
         android:id="@+id/guidelineTop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
         app:layout_constraintGuide_begin="50dp" />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -19,6 +20,7 @@
         app:layout_constraintTop_toTopOf="@id/guidelineTop" />
 
     <include
+        android:id="@+id/progress_bar_root"
         layout="@layout/progress_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -8,17 +8,21 @@ import androidx.appcompat.app.AppCompatActivity
 import dagger.hilt.android.AndroidEntryPoint
 import lazycoder21.droid.common.enitity.Resource
 import lazycoder21.droid.common.utils.showErrorMessage
-import lazycoder21.droid.pull_requests.R
+import lazycoder21.droid.common.utils.showIf
+import lazycoder21.droid.pull_requests.databinding.ActivityPullRequestBinding
 import lazycoder21.droid.pull_requests.domain.model.GithubPullRequest
 
 @AndroidEntryPoint
 class PullRequestActivity : AppCompatActivity() {
 
     private val viewModel: PullRequestViewModel by viewModels()
+    private var _binding: ActivityPullRequestBinding? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_pull_request)
+        _binding = ActivityPullRequestBinding.inflate(layoutInflater).apply {
+            setContentView(this.root)
+        }
 
         observeLiveData()
         loadData()
@@ -43,11 +47,12 @@ class PullRequestActivity : AppCompatActivity() {
     }
 
     private fun updateLoadingState(isLoading: Boolean) {
-
+        _binding?.progressBarRoot?.progressBar?.showIf(isLoading)
     }
 
     override fun onDestroy() {
         super.onDestroy()
+        _binding = null
         viewModel.pullRequest.removeObservers(this)
     }
 
