@@ -8,7 +8,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import lazycoder21.droid.common.constant.DefaultValues
 import lazycoder21.droid.common.enitity.Resource
-import lazycoder21.droid.pull_requests.domain.model.GithubPullRequest
+import lazycoder21.droid.pull_requests.domain.model.PullRequest
 import lazycoder21.droid.pull_requests.domain.use_case.GithubPullRequestUseCase
 import lazycoder21.droid.pull_requests.utils.constants.GithubPRStatus
 import javax.inject.Inject
@@ -18,8 +18,8 @@ class PullRequestViewModel @Inject constructor(
     private val useCase: GithubPullRequestUseCase
 ) : ViewModel() {
 
-    private val _pullRequests = MutableLiveData<Resource<List<GithubPullRequest>>>()
-    val pullRequest: LiveData<Resource<List<GithubPullRequest>>> = _pullRequests
+    private val _pullRequests = MutableLiveData<Resource<List<PullRequest>>>()
+    val pullRequest: LiveData<Resource<List<PullRequest>>> = _pullRequests
 
     fun fetchPullRequest(
         userId: String = DefaultValues.USER_ID,

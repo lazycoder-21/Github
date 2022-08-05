@@ -10,7 +10,7 @@ import lazycoder21.droid.common.enitity.Resource
 import lazycoder21.droid.common.utils.showErrorMessage
 import lazycoder21.droid.common.utils.showIf
 import lazycoder21.droid.pull_requests.databinding.ActivityPullRequestBinding
-import lazycoder21.droid.pull_requests.domain.model.GithubPullRequest
+import lazycoder21.droid.pull_requests.domain.model.PullRequest
 import lazycoder21.droid.pull_requests.presentation.adapter.PullRequestRvAdapter
 import lazycoder21.droid.pull_requests.presentation.adapter.factory.ItemTypeFactory
 
@@ -52,7 +52,7 @@ class PullRequestActivity : AppCompatActivity() {
         }
     }
 
-    private fun onSuccessList(list: List<GithubPullRequest>) {
+    private fun onSuccessList(list: List<PullRequest>) {
         adapter.clearAndInsertItems(list)
     }
 

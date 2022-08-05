@@ -8,7 +8,7 @@ import lazycoder21.droid.common.utils.errorMessage
 import lazycoder21.droid.common.utils.safeApiCall
 import lazycoder21.droid.pull_requests.data.remote.GithubPullRequestApi
 import lazycoder21.droid.pull_requests.domain.mapper.GithubPullRequestMappers.mapToDomain
-import lazycoder21.droid.pull_requests.domain.model.GithubPullRequest
+import lazycoder21.droid.pull_requests.domain.model.PullRequest
 import lazycoder21.droid.pull_requests.domain.repository.IGithubPullRequestRepository
 import lazycoder21.droid.pull_requests.utils.constants.GithubPRStatus
 import javax.inject.Inject
@@ -21,7 +21,7 @@ class GithubPullRequestRepository @Inject constructor(
         userId: String,
         repositoryName: String,
         status: GithubPRStatus,
-    ): Flow<Resource<List<GithubPullRequest>>> = flow {
+    ): Flow<Resource<List<PullRequest>>> = flow {
 
         emit(Resource.Loading(isLoading = true))
 

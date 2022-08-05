@@ -3,7 +3,7 @@ package lazycoder21.droid.pull_requests.domain.model
 import lazycoder21.droid.pull_requests.presentation.adapter.base.BaseItemModel
 import lazycoder21.droid.pull_requests.presentation.adapter.factory.ItemTypeFactory
 
-data class GithubPullRequest(
+data class PullRequest(
     val title: String = "",
     val createdAt: String = "",
     val closedAt: String = "",
