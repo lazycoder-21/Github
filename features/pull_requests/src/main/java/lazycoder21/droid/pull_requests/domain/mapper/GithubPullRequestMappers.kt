@@ -17,5 +17,5 @@ object GithubPullRequestMappers {
         )
 
     val GithubPullRequestDto.User.mapToDomain
-        get() = PullRequest.User(avatarUrl, id, url)
+        get() = PullRequest.User(avatarUrl, name = login)
 }

@@ -11,8 +11,7 @@ data class PullRequest(
 ) : BaseItemModel {
     data class User(
         val avatarUrl: String = "",
-        val id: Int = 0,
-        val url: String = "",
+        val name: String = "",
     )
 
     override fun type(typeFactory: ItemTypeFactory): Int {
