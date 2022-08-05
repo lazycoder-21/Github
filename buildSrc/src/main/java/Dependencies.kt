@@ -42,5 +42,10 @@ object Dependencies {
     const val GLIDE = "com.github.bumptech.glide:glide:${Versions.GLIDE}"
     const val GLIDE_COMPILER = "com.github.bumptech.glide:compiler:${Versions.GLIDE}"
 
-    const val CONSTRAINT_LAYOUT = "androidx.constraintlayout:constraintlayout:${Versions.CONSTRAINT_LAYOUT}"
+    const val CONSTRAINT_LAYOUT =
+        "androidx.constraintlayout:constraintlayout:${Versions.CONSTRAINT_LAYOUT}"
+
+    //hilt
+    const val HILT = "com.google.dagger:hilt-android:2.38.1"
+    const val KAPT_HILT_COMPILER = "com.google.dagger:hilt-android-compiler:2.37"
 }

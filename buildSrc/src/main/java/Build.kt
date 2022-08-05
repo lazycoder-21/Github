@@ -6,4 +6,6 @@ object Build {
 
     const val NAVIGATION_SAGE_ARGS =
         "androidx.navigation:navigation-safe-args-gradle-plugin:${Versions.NAVIGATION}"
+
+    const val HILT = "com.google.dagger:hilt-android-gradle-plugin:2.38.1"
 }
