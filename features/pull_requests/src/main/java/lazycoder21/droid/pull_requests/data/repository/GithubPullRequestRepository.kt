@@ -1,5 +1,6 @@
 package lazycoder21.droid.pull_requests.data.repository
 
+import android.util.Log
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import lazycoder21.droid.common.enitity.Resource
@@ -10,8 +11,9 @@ import lazycoder21.droid.pull_requests.domain.mapper.GithubPullRequestMappers.ma
 import lazycoder21.droid.pull_requests.domain.model.GithubPullRequest
 import lazycoder21.droid.pull_requests.domain.repository.IGithubPullRequestRepository
 import lazycoder21.droid.pull_requests.utils.constants.GithubPRStatus
+import javax.inject.Inject
 
-internal class GithubPullRequestRepository(
+class GithubPullRequestRepository @Inject constructor(
     private val githubPullRequestApi: GithubPullRequestApi,
 ) : IGithubPullRequestRepository {
 
@@ -24,8 +26,9 @@ internal class GithubPullRequestRepository(
         emit(Resource.Loading(isLoading = true))
 
         safeApiCall(block = {
-            val data = githubPullRequestApi.fetchPullRequests(userId, repositoryName, status)
+            val data = githubPullRequestApi.fetchPullRequests(status.status)
             val body = data.body()
+            Log.d("TAG", "fetchPullRequests: $body")
             emit(
                 if (data.isSuccessful && body != null) {
                     Resource.Success(body.mapToDomain)

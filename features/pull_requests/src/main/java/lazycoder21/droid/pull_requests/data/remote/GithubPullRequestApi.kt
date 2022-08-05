@@ -9,11 +9,9 @@ import retrofit2.http.Query
 
 interface GithubPullRequestApi {
 
-    @GET("$PARAM_USER_ID/$PARAM_REPO_NAME/pulls")
+    @GET("repos/lazycoder-21/MoodTracker/pulls")
     suspend fun fetchPullRequests(
-        @Path(PARAM_USER_ID) userId: String,
-        @Path(PARAM_REPO_NAME) repositoryName: String,
-        @Query(PARAM_STATUS) status: GithubPRStatus,
+        @Query(PARAM_STATUS) status: String,
     ): Response<List<GithubPullRequestDto>>
 
     private companion object {

@@ -12,6 +12,7 @@ object Dependencies {
 
     //androidX
     const val CORE_KTX = "androidx.core:core-ktx:${Versions.CORE_KTX}"
+    const val ACTIVITY_KTX = "androidx.activity:activity-ktx:1.5.1"
 
     const val APP_COMPAT = "androidx.appcompat:appcompat:${Versions.APP_COMPAT}"
 

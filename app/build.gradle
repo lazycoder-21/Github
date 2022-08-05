@@ -1,6 +1,8 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'dagger.hilt.android.plugin'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -37,4 +39,6 @@ dependencies {
     implementation Dependencies.APP_COMPAT
     implementation Dependencies.LIFE_CYCLE_RUNTIME
     implementation project(Modules.PULL_REQUESTS)
+    implementation Dependencies.HILT
+    kapt Dependencies.KAPT_HILT_COMPILER
 }

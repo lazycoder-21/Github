@@ -6,8 +6,9 @@ import lazycoder21.droid.common.enitity.Resource
 import lazycoder21.droid.pull_requests.domain.model.GithubPullRequest
 import lazycoder21.droid.pull_requests.domain.repository.IGithubPullRequestRepository
 import lazycoder21.droid.pull_requests.utils.constants.GithubPRStatus
+import javax.inject.Inject
 
-class GithubPullRequestUseCase(
+class GithubPullRequestUseCase @Inject constructor(
     private val repository: IGithubPullRequestRepository,
 ) {
 

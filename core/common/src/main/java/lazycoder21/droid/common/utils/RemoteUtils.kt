@@ -14,7 +14,7 @@ import java.io.IOException
 import java.net.SocketTimeoutException
 
 inline fun <reified T> buildApi(
-    baseUrl: String = "https://api.github.com/repos/"
+    baseUrl: String = "https://api.github.com/"
 ): T {
     val loggingInterceptor = HttpLoggingInterceptor()
     loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
@@ -23,11 +23,11 @@ inline fun <reified T> buildApi(
         .addInterceptor(loggingInterceptor)
         .build()
     return Retrofit.Builder()
-        .client(okHttpClient)
         .baseUrl(baseUrl)
         .addConverterFactory(
             GsonConverterFactory.create()
         )
+        .client(okHttpClient)
         .build()
         .create()
 }
@@ -49,7 +49,8 @@ suspend inline fun safeApiCall(
     } catch (e: IOException) {
         error.invoke(StringHandler.NormalString("Couldn't reach server. Check your internet connection."))
     } catch (e: Exception) {
-        error.invoke(StringHandler.NormalString("Something went wrong"))
+        val so = e
+        error.invoke(StringHandler.NormalString(e.message ?: "Something went wrong"))
     }
 }
 

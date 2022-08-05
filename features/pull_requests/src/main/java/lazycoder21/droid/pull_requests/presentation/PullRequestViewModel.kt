@@ -4,14 +4,17 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import lazycoder21.droid.common.constant.DefaultValues
 import lazycoder21.droid.common.enitity.Resource
 import lazycoder21.droid.pull_requests.domain.model.GithubPullRequest
 import lazycoder21.droid.pull_requests.domain.use_case.GithubPullRequestUseCase
 import lazycoder21.droid.pull_requests.utils.constants.GithubPRStatus
+import javax.inject.Inject
 
-class PullRequestViewModel(
+@HiltViewModel
+class PullRequestViewModel @Inject constructor(
     private val useCase: GithubPullRequestUseCase
 ) : ViewModel() {
 
