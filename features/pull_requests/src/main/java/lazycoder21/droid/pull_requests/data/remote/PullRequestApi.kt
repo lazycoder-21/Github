@@ -1,12 +1,12 @@
 package lazycoder21.droid.pull_requests.data.remote
 
-import lazycoder21.droid.pull_requests.data.remote.dto.GithubPullRequestDto
+import lazycoder21.droid.pull_requests.data.remote.dto.PullRequestDto
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
-interface GithubPullRequestApi {
+interface PullRequestApi {
 
     @GET("repos/{${USER_ID}}/{${REPO_NAME}}/pulls")
     suspend fun fetchPullRequests(
@@ -14,7 +14,7 @@ interface GithubPullRequestApi {
         @Path(REPO_NAME) repository: String,
         @Query(STATUS) status: String,
         @Query(PER_PAGE) perPage: Int,
-    ): Response<List<GithubPullRequestDto>>
+    ): Response<List<PullRequestDto>>
 
     private companion object {
         const val USER_ID = "user_id"

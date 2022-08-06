@@ -2,7 +2,7 @@ package lazycoder21.droid.pull_requests.data.remote.dto
 
 import com.google.gson.annotations.SerializedName
 
-data class GithubPullRequestDto(
+data class PullRequestDto(
     @SerializedName("active_lock_reason")
     val activeLockReason: Any? = null,
     @SerializedName("assignee")

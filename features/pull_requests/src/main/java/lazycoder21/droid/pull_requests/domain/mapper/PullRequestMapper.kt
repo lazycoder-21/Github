@@ -1,14 +1,14 @@
 package lazycoder21.droid.pull_requests.domain.mapper
 
-import lazycoder21.droid.pull_requests.data.remote.dto.GithubPullRequestDto
+import lazycoder21.droid.pull_requests.data.remote.dto.PullRequestDto
 import lazycoder21.droid.pull_requests.domain.model.PullRequest
 
-object GithubPullRequestMappers {
+object PullRequestMapper {
 
-    val List<GithubPullRequestDto>.mapToDomain
+    val List<PullRequestDto>.mapToDomain
         get() = map { it.mapToDomain }
 
-    val GithubPullRequestDto.mapToDomain
+    val PullRequestDto.mapToDomain
         get() = PullRequest(
             title = title,
             closedAt = closedAt,
@@ -16,6 +16,6 @@ object GithubPullRequestMappers {
             user = user.mapToDomain
         )
 
-    val GithubPullRequestDto.User.mapToDomain
+    val PullRequestDto.User.mapToDomain
         get() = PullRequest.User(avatarUrl, name = login)
 }

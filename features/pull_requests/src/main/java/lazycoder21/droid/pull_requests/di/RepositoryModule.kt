@@ -4,8 +4,8 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import lazycoder21.droid.pull_requests.data.repository.GithubPullRequestRepository
-import lazycoder21.droid.pull_requests.domain.repository.IGithubPullRequestRepository
+import lazycoder21.droid.pull_requests.data.repository.PullRequestRepository
+import lazycoder21.droid.pull_requests.domain.repository.IPullRequestRepository
 import javax.inject.Singleton
 
 @Module
@@ -14,5 +14,5 @@ abstract class RepositoryModule {
 
     @Singleton
     @Binds
-    abstract fun providePRRepo(repo: GithubPullRequestRepository): IGithubPullRequestRepository
+    abstract fun providePRRepo(repo: PullRequestRepository): IPullRequestRepository
 }

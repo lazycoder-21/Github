@@ -1,6 +1,6 @@
 package lazycoder21.droid.pull_requests.utils.constants
 
-enum class GithubPRStatus(val status: String) {
+enum class PullRequestStatus(val status: String) {
     All("all"),
     Open("open"),
     Closed("closed"),
