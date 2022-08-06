@@ -1,5 +1,6 @@
 package lazycoder21.droid.common.utils
 
+import android.util.Log
 import com.google.gson.Gson
 import lazycoder21.droid.common.enitity.RetrofitErrorMessage
 import lazycoder21.droid.common.enitity.StringHandler
@@ -38,19 +39,18 @@ suspend inline fun safeApiCall(
 ) {
     try {
         block.invoke()
-    } catch (e: SocketTimeoutException) {
-        error.invoke(StringHandler.NormalString("Slow Internet"))
-    } catch (e: HttpException) {
+    } catch (e: Exception) {
+        Log.d("Github", "safeApiCall: ${e.printStackTrace()}")
         error.invoke(
-            StringHandler.NormalString(
-                e.localizedMessage ?: "An unexpected error occurred"
+            StringHandler.ResourceString(
+                when (e) {
+                    is SocketTimeoutException -> R.string.slow_internet
+                    is HttpException -> R.string.an_unexpected_error_occurred
+                    is IOException -> R.string.check_your_internet_connection
+                    else -> R.string.something_went_wrong
+                }
             )
         )
-    } catch (e: IOException) {
-        error.invoke(StringHandler.NormalString("Couldn't reach server. Check your internet connection."))
-    } catch (e: Exception) {
-        val so = e
-        error.invoke(StringHandler.NormalString(e.message ?: "Something went wrong"))
     }
 }
 
