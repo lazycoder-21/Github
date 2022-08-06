@@ -6,10 +6,12 @@ import lazycoder21.droid.common.enitity.Resource
 import lazycoder21.droid.common.utils.errorMessage
 import lazycoder21.droid.common.utils.safeApiCall
 import lazycoder21.droid.pull_requests.data.remote.GithubPullRequestApi
+import lazycoder21.droid.pull_requests.data.remote.dto.GithubPullRequestDto
 import lazycoder21.droid.pull_requests.domain.mapper.GithubPullRequestMappers.mapToDomain
 import lazycoder21.droid.pull_requests.domain.model.PullRequest
+import lazycoder21.droid.pull_requests.domain.model.parms.PullRequestParams
 import lazycoder21.droid.pull_requests.domain.repository.IGithubPullRequestRepository
-import lazycoder21.droid.pull_requests.utils.constants.GithubPRStatus
+import retrofit2.Response
 import javax.inject.Inject
 
 class GithubPullRequestRepository @Inject constructor(
@@ -17,15 +19,17 @@ class GithubPullRequestRepository @Inject constructor(
 ) : IGithubPullRequestRepository {
 
     override suspend fun fetchPullRequests(
-        userId: String,
-        repository: String,
-        status: GithubPRStatus,
+        params: PullRequestParams
     ): Flow<Resource<List<PullRequest>>> = flow {
 
         emit(Resource.Loading(isLoading = true))
 
         safeApiCall(block = {
-            val data = githubPullRequestApi.fetchPullRequests(userId, repository, status.status)
+            val data: Response<List<GithubPullRequestDto>> = params.run {
+                githubPullRequestApi.fetchPullRequests(
+                    userId, repoName, status.status, perPage
+                )
+            }
             val body = data.body()
             emit(
                 if (data.isSuccessful && body != null) {

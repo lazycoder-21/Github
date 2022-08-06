@@ -8,16 +8,18 @@ import retrofit2.http.Query
 
 interface GithubPullRequestApi {
 
-    @GET("repos/{${PARAM_USER_ID}}/{${PARAM_REPO_NAME}}/pulls")
+    @GET("repos/{${USER_ID}}/{${REPO_NAME}}/pulls")
     suspend fun fetchPullRequests(
-        @Path(PARAM_USER_ID) userId: String,
-        @Path(PARAM_REPO_NAME) repository: String,
-        @Query(PARAM_STATUS) status: String,
+        @Path(USER_ID) userId: String,
+        @Path(REPO_NAME) repository: String,
+        @Query(STATUS) status: String,
+        @Query(PER_PAGE) perPage: Int,
     ): Response<List<GithubPullRequestDto>>
 
     private companion object {
-        const val PARAM_USER_ID = "user_id"
-        const val PARAM_REPO_NAME = "repo_name"
-        const val PARAM_STATUS = "state"
+        const val USER_ID = "user_id"
+        const val REPO_NAME = "repo_name"
+        const val STATUS = "state"
+        const val PER_PAGE = "per_page"
     }
 }
