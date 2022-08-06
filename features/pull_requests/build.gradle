@@ -38,7 +38,6 @@ android {
 
 dependencies {
     implementation project(Modules.COMMON)
-    implementation Dependencies.PAGING_RUNTIME
     implementation Dependencies.COROUTINES
     implementation Dependencies.ACTIVITY_KTX
     implementation Dependencies.MATERIAL
@@ -52,4 +51,6 @@ dependencies {
     implementation Dependencies.OKHTTP_LOGGING_INTERCEPTOR
     implementation Dependencies.HILT
     kapt Dependencies.KAPT_HILT_COMPILER
+
+    testImplementation Dependencies.TEST_JUNIT
 }

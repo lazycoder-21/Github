@@ -53,4 +53,7 @@ object Dependencies {
 
     private const val PAGING_VERSION = "3.0.0"
     const val PAGING_RUNTIME = "androidx.paging:paging-runtime:$PAGING_VERSION"
+
+    //test
+    const val TEST_JUNIT = "junit:junit:4.+"
 }
