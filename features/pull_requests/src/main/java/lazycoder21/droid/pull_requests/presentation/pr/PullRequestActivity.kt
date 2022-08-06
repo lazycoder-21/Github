@@ -5,11 +5,14 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import lazycoder21.droid.common.enitity.Resource
+import lazycoder21.droid.common.recycler_view.InfiniteScrollListener
 import lazycoder21.droid.common.utils.showErrorMessage
 import lazycoder21.droid.common.utils.showIf
 import lazycoder21.droid.pull_requests.databinding.ActivityPullRequestBinding
+import lazycoder21.droid.pull_requests.domain.api_param_model.PullRequestParam
 import lazycoder21.droid.pull_requests.domain.model.PullRequest
 import lazycoder21.droid.pull_requests.presentation.adapter.PullRequestRvAdapter
 import lazycoder21.droid.pull_requests.presentation.adapter.factory.ItemTypeFactory
@@ -17,6 +20,7 @@ import lazycoder21.droid.pull_requests.presentation.adapter.factory.ItemTypeFact
 @AndroidEntryPoint
 class PullRequestActivity : AppCompatActivity() {
 
+    private var pageNo: Int = 0
     private val viewModel: PullRequestViewModel by viewModels()
     private var _binding: ActivityPullRequestBinding? = null
     private val adapter = PullRequestRvAdapter(ItemTypeFactory())
@@ -33,13 +37,29 @@ class PullRequestActivity : AppCompatActivity() {
     }
 
     private fun initRecyclerView() {
+        val layoutManager = LinearLayoutManager(this)
         _binding?.recyclerView?.apply {
+            this.layoutManager = layoutManager
             adapter = this@PullRequestActivity.adapter
+            addOnScrollListener(object : InfiniteScrollListener(layoutManager) {
+                override fun onLoadMore() {
+                    fetchPullRequest(++pageNo)
+                }
+
+                override fun isDataLoading(): Boolean {
+                    return (viewModel.pullRequest.value as? Resource.Loading)?.isLoading == true
+                }
+            })
         }
     }
 
+    private fun fetchPullRequest(pageNo: Int) {
+        viewModel.fetchPullRequest(PullRequestParam(pageNo = pageNo))
+    }
+
     private fun loadData() {
-        viewModel.fetchPullRequest()
+        pageNo = 0
+        fetchPullRequest(pageNo)
     }
 
     private fun observeLiveData() {
@@ -53,7 +73,9 @@ class PullRequestActivity : AppCompatActivity() {
     }
 
     private fun onSuccessList(list: List<PullRequest>) {
-        adapter.clearAndInsertItems(list)
+        if (pageNo == 0)
+            adapter.clearAndInsertItems(list)
+        else adapter.addItems(list)
     }
 
     private fun updateLoadingState(isLoading: Boolean) {

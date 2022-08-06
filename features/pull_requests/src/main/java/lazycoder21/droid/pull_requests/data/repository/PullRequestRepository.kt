@@ -27,7 +27,7 @@ class PullRequestRepository @Inject constructor(
         safeApiCall(block = {
             val data: Response<List<PullRequestDto>> = param.run {
                 pullRequestApi.fetchPullRequests(
-                    userId, repoName, status.status, perPage
+                    userId, repoName, status.status, perPage, pageNo
                 )
             }
             val body = data.body()

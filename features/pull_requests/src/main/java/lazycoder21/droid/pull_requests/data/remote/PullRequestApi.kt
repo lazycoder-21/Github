@@ -14,6 +14,7 @@ interface PullRequestApi {
         @Path(REPO_NAME) repository: String,
         @Query(STATUS) status: String,
         @Query(PER_PAGE) perPage: Int,
+        @Query(PAGE) pageNo: Int,
     ): Response<List<PullRequestDto>>
 
     private companion object {
@@ -21,5 +22,6 @@ interface PullRequestApi {
         const val REPO_NAME = "repo_name"
         const val STATUS = "state"
         const val PER_PAGE = "per_page"
+        const val PAGE = "page"
     }
 }
