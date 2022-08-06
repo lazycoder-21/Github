@@ -50,4 +50,7 @@ object Dependencies {
     //hilt
     const val HILT = "com.google.dagger:hilt-android:2.38.1"
     const val KAPT_HILT_COMPILER = "com.google.dagger:hilt-android-compiler:2.37"
+
+    private const val PAGING_VERSION = "3.0.0"
+    const val PAGING_RUNTIME = "androidx.paging:paging-runtime:$PAGING_VERSION"
 }
