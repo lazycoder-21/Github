@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import lazycoder21.droid.common.enitity.Resource
 import lazycoder21.droid.common.recycler_view.InfiniteScrollListener
-import lazycoder21.droid.common.utils.isFirst
+import lazycoder21.droid.common.utils.isFirstPage
 import lazycoder21.droid.common.utils.showErrorMessage
 import lazycoder21.droid.common.utils.showIf
 import lazycoder21.droid.pull_requests.databinding.ActivityPullRequestBinding
@@ -74,11 +74,11 @@ class PullRequestActivity : AppCompatActivity() {
     }
 
     private fun onSuccessList(list: List<PullRequest>) {
-        adapter.clearAndInsertItems(list)
+        adapter.submitList(list)
     }
 
     private fun updateLoadingState(isLoading: Boolean) {
-        if (viewModel.pageNo.isFirst)
+        if (viewModel.pageNo.isFirstPage)
             _binding?.progressBarRoot?.progressBar?.showIf(isLoading)
     }
 

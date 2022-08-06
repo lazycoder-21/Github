@@ -2,7 +2,7 @@ package lazycoder21.droid.pull_requests.presentation.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.ListAdapter
 import lazycoder21.droid.pull_requests.domain.model.Loading
 import lazycoder21.droid.pull_requests.presentation.adapter.base.AbstractViewHolder
 import lazycoder21.droid.pull_requests.presentation.adapter.base.BaseItemModel
@@ -10,8 +10,7 @@ import lazycoder21.droid.pull_requests.presentation.adapter.factory.ItemTypeFact
 
 class PullRequestRvAdapter(
     private val adapterTypeFactory: ItemTypeFactory,
-    private val list: MutableList<BaseItemModel> = mutableListOf(),
-) : RecyclerView.Adapter<AbstractViewHolder<BaseItemModel>>() {
+) : ListAdapter<BaseItemModel, AbstractViewHolder<BaseItemModel>>(PullRequestAdapterDiffUtil) {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -23,37 +22,18 @@ class PullRequestRvAdapter(
         ) as AbstractViewHolder<BaseItemModel>
     }
 
-    override fun getItemCount(): Int = list.size
-
     override fun onBindViewHolder(holder: AbstractViewHolder<BaseItemModel>, position: Int) {
-        holder.bind(list[position])
+        holder.bind(getItem(position))
     }
 
     override fun getItemViewType(position: Int): Int {
-        return list[position].type(adapterTypeFactory)
-    }
-
-    fun clearAndInsertItems(items: List<BaseItemModel>) {
-        list.clear()
-        list.addAll(items)
-        notifyDataSetChanged()
-    }
-
-    fun addItems(items: List<BaseItemModel>) {
-        val loaderIndex = list.lastIndex
-        if (list.getOrNull(loaderIndex) is Loading) {
-            list.removeLast()
-            notifyItemRemoved(loaderIndex)
-        }
-
-        val prevSize = list.size
-        list.addAll(items)
-        notifyItemRangeInserted(prevSize, items.size)
+        return getItem(position).type(adapterTypeFactory)
     }
 
     fun addLoadingState() {
-        val loaderIndex = list.lastIndex
-        list.add(Loading)
-        notifyItemInserted(loaderIndex)
+        val newList = currentList.toMutableList().also {
+            it.add(Loading)
+        }
+        submitList(newList)
     }
 }
