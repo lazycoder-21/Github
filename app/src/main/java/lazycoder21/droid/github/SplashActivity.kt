@@ -8,10 +8,14 @@ import kotlinx.coroutines.launch
 import lazycoder21.droid.pull_requests.presentation.pr.PullRequestActivity.Companion.navigateToPullRequestActivity
 
 class SplashActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
+    }
 
+    override fun onStart() {
+        super.onStart()
         navigateToPullRequest()
     }
 
