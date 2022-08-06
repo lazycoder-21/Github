@@ -3,7 +3,7 @@ package lazycoder21.droid.pull_requests.data.repository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import lazycoder21.droid.common.enitity.Resource
-import lazycoder21.droid.common.utils.errorMessage
+import lazycoder21.droid.common.utils.data
 import lazycoder21.droid.common.utils.safeApiCall
 import lazycoder21.droid.pull_requests.data.remote.PullRequestApi
 import lazycoder21.droid.pull_requests.data.remote.dto.PullRequestDto
@@ -25,19 +25,13 @@ class PullRequestRepository @Inject constructor(
         emit(Resource.Loading(isLoading = true))
 
         safeApiCall(block = {
-            val data: Response<List<PullRequestDto>> = param.run {
+            val response: Response<List<PullRequestDto>> = param.run {
                 pullRequestApi.fetchPullRequests(
                     userId, repoName, status.status, perPage, pageNo
                 )
             }
-            val body = data.body()
-            emit(
-                if (data.isSuccessful && body != null) {
-                    Resource.Success(body.mapToDomain)
-                } else {
-                    Resource.Error(data.errorMessage())
-                }
-            )
+
+            emit(response.data { it.mapToDomain })
         }, error = {
             emit(Resource.Error(it))
         })

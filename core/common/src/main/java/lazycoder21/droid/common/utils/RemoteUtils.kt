@@ -2,6 +2,7 @@ package lazycoder21.droid.common.utils
 
 import android.util.Log
 import com.google.gson.Gson
+import lazycoder21.droid.common.enitity.Resource
 import lazycoder21.droid.common.enitity.RetrofitErrorMessage
 import lazycoder21.droid.common.enitity.StringHandler
 import okhttp3.OkHttpClient
@@ -60,4 +61,17 @@ fun <T> Response<T>.errorMessage(): StringHandler {
         this@errorMessage.errorBody()?.charStream(), RetrofitErrorMessage::class.java
     )
     return StringHandler.NormalString(data.message)
+}
+
+inline fun <T_Response, T_Success> Response<T_Response>.data(
+    transformSuccess: (T_Response) -> T_Success,
+): Resource<T_Success> {
+    val response = this
+    val body = response.body()
+
+    return if (response.isSuccessful && body != null) {
+        Resource.Success(transformSuccess(body))
+    } else {
+        Resource.Error(response.errorMessage())
+    }
 }
