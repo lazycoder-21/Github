@@ -35,7 +35,8 @@ class PullRequestRvAdapter(
 
     fun clearAndInsertItems(items: List<BaseItemModel>) {
         list.clear()
-        addItems(items)
+        list.addAll(items)
+        notifyDataSetChanged()
     }
 
     fun addItems(items: List<BaseItemModel>) {

@@ -21,7 +21,6 @@ import lazycoder21.droid.pull_requests.presentation.adapter.factory.ItemTypeFact
 @AndroidEntryPoint
 class PullRequestActivity : AppCompatActivity() {
 
-    private var pageNo: Int = 0
     private val viewModel: PullRequestViewModel by viewModels()
     private var _binding: ActivityPullRequestBinding? = null
     private val adapter = PullRequestRvAdapter(ItemTypeFactory())
@@ -44,28 +43,28 @@ class PullRequestActivity : AppCompatActivity() {
             adapter = this@PullRequestActivity.adapter
             addOnScrollListener(object : InfiniteScrollListener(layoutManager) {
                 override fun onLoadMore() {
-                    fetchPullRequest(++pageNo)
+                    this@PullRequestActivity.adapter.addLoadingState()
+                    fetchPullRequest(isInitialLoad = false)
                 }
 
                 override fun isDataLoading(): Boolean {
-                    val state = viewModel.pullRequest.value as? Resource.Loading
+                    val state = viewModel.pullRequestLiveData.value as? Resource.Loading
                     return state?.isLoading == true
                 }
             })
         }
     }
 
-    private fun fetchPullRequest(pageNo: Int) {
-        viewModel.fetchPullRequest(PullRequestParam(pageNo = pageNo))
+    private fun fetchPullRequest(isInitialLoad: Boolean = false) {
+        viewModel.fetchPullRequest(PullRequestParam(isInitialLoading = isInitialLoad))
     }
 
     private fun loadData() {
-        pageNo = 0
-        fetchPullRequest(pageNo)
+        fetchPullRequest(isInitialLoad = true)
     }
 
     private fun observeLiveData() {
-        viewModel.pullRequest.observe(this) {
+        viewModel.pullRequestLiveData.observe(this) {
             when (it) {
                 is Resource.Error -> showErrorMessage(it.message.asString(this))
                 is Resource.Loading -> updateLoadingState(it.isLoading)
@@ -75,26 +74,18 @@ class PullRequestActivity : AppCompatActivity() {
     }
 
     private fun onSuccessList(list: List<PullRequest>) {
-        if (pageNo.isFirst) {
-            adapter.clearAndInsertItems(list)
-            return
-        }
-        adapter.addItems(list)
+        adapter.clearAndInsertItems(list)
     }
 
     private fun updateLoadingState(isLoading: Boolean) {
-        if (pageNo.isFirst) {
+        if (viewModel.pageNo.isFirst)
             _binding?.progressBarRoot?.progressBar?.showIf(isLoading)
-            return
-        }
-        if (!isLoading) return
-        adapter.addLoadingState()
     }
 
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
-        viewModel.pullRequest.removeObservers(this)
+        viewModel.pullRequestLiveData.removeObservers(this)
     }
 
     companion object {

@@ -8,5 +8,6 @@ data class PullRequestParam(
     val repoName: String = DefaultValues.REPO_NAME,
     val status: PullRequestStatus = PullRequestStatus.Default,
     val perPage: Int = DefaultValues.PER_PAGE,
-    val pageNo: Int = 0
+    val pageNo: Int = 0,
+    val isInitialLoading: Boolean = false
 )

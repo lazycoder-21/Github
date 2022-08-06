@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import lazycoder21.droid.common.constant.DefaultValues
 import lazycoder21.droid.common.enitity.Resource
 import lazycoder21.droid.pull_requests.domain.api_param_model.PullRequestParam
 import lazycoder21.droid.pull_requests.domain.model.PullRequest
@@ -14,16 +15,34 @@ import javax.inject.Inject
 
 @HiltViewModel
 class PullRequestViewModel @Inject constructor(
-    private val useCase: PullRequestUseCase
+    private val useCase: PullRequestUseCase,
 ) : ViewModel() {
 
-    private val _pullRequests = MutableLiveData<Resource<List<PullRequest>>>()
-    val pullRequest: LiveData<Resource<List<PullRequest>>> = _pullRequests
+    var pageNo: Int = 0
+        private set
 
-    fun fetchPullRequest(param: PullRequestParam = PullRequestParam()) = viewModelScope.launch {
-        useCase.fetchPullRequests(param).collect {
-            _pullRequests.value = it
+    private val _pullRequests: MutableList<PullRequest> = mutableListOf()
+    private val _pullRequestsLiveData = MutableLiveData<Resource<List<PullRequest>>>()
+    val pullRequestLiveData: LiveData<Resource<List<PullRequest>>> = _pullRequestsLiveData
+
+    fun fetchPullRequest(
+        param: PullRequestParam = PullRequestParam(),
+    ) = viewModelScope.launch {
+        if (param.isInitialLoading) resetPageNo()
+
+        ++pageNo
+        useCase.fetchPullRequests(param.copy(pageNo = pageNo)).collect {
+            _pullRequestsLiveData.value = if (it is Resource.Success) {
+                _pullRequests.addAll(it.data)
+                Resource.Success(_pullRequests)
+            } else {
+                it
+            }
         }
     }
 
+    private fun resetPageNo() {
+        pageNo = DefaultValues.PAGE_NO.minus(1)
+        _pullRequests.clear()
+    }
 }
