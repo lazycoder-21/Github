@@ -1,5 +1,6 @@
 package lazycoder21.droid.pull_requests.domain.mapper
 
+import lazycoder21.droid.common.utils.orBlank
 import lazycoder21.droid.pull_requests.data.remote.dto.PullRequestDto
 import lazycoder21.droid.pull_requests.domain.model.PullRequest
 
@@ -10,12 +11,12 @@ object PullRequestMapper {
 
     val PullRequestDto.mapToDomain
         get() = PullRequest(
-            title = title,
-            closedAt = closedAt,
-            createdAt = createdAt,
-            user = user.mapToDomain
+            title = title.orBlank(),
+            closedAt = closedAt.orBlank(),
+            createdAt = createdAt.orBlank(),
+            user = (user ?: PullRequestDto.User()).mapToDomain
         )
 
     val PullRequestDto.User.mapToDomain
-        get() = PullRequest.User(avatarUrl, name = login)
+        get() = PullRequest.User(avatarUrl.orBlank(), name = login.orBlank())
 }
