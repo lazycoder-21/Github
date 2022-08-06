@@ -48,7 +48,8 @@ class PullRequestActivity : AppCompatActivity() {
                 }
 
                 override fun isDataLoading(): Boolean {
-                    return (viewModel.pullRequest.value as? Resource.Loading)?.isLoading == true
+                    val state = viewModel.pullRequest.value as? Resource.Loading
+                    return state?.isLoading == true
                 }
             })
         }
