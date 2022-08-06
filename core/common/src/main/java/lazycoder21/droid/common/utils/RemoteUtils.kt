@@ -40,7 +40,8 @@ suspend inline fun safeApiCall(
     try {
         block.invoke()
     } catch (e: Exception) {
-        Log.d("Github", "safeApiCall: ${e.printStackTrace()}")
+        e.printStackTrace()
+        Log.d("Github", "safeApiCall: ${e.localizedMessage}")
         error.invoke(
             StringHandler.ResourceString(
                 when (e) {
