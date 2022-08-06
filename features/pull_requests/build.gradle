@@ -52,5 +52,6 @@ dependencies {
     implementation Dependencies.HILT
     kapt Dependencies.KAPT_HILT_COMPILER
 
+    testImplementation Dependencies.TEST_MOCK
     testImplementation Dependencies.TEST_JUNIT
 }
