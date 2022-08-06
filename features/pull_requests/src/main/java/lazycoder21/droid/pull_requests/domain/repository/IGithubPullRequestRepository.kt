@@ -9,7 +9,7 @@ interface IGithubPullRequestRepository {
 
     suspend fun fetchPullRequests(
         userId: String,
-        repositoryName: String,
+        repository: String,
         status: GithubPRStatus,
     ): Flow<Resource<List<PullRequest>>>
 }

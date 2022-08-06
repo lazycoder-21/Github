@@ -1,6 +1,5 @@
 package lazycoder21.droid.pull_requests.data.repository
 
-import android.util.Log
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import lazycoder21.droid.common.enitity.Resource
@@ -19,16 +18,15 @@ class GithubPullRequestRepository @Inject constructor(
 
     override suspend fun fetchPullRequests(
         userId: String,
-        repositoryName: String,
+        repository: String,
         status: GithubPRStatus,
     ): Flow<Resource<List<PullRequest>>> = flow {
 
         emit(Resource.Loading(isLoading = true))
 
         safeApiCall(block = {
-            val data = githubPullRequestApi.fetchPullRequests(status.status)
+            val data = githubPullRequestApi.fetchPullRequests(userId, repository, status.status)
             val body = data.body()
-            Log.d("TAG", "fetchPullRequests: $body")
             emit(
                 if (data.isSuccessful && body != null) {
                     Resource.Success(body.mapToDomain)
