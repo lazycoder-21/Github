@@ -11,12 +11,12 @@ object PullRequestMapper {
 
     val PullRequestDto.mapToDomain
         get() = PullRequest(
-            title = title.orBlank(),
-            closedAt = closedAt.orBlank(),
-            createdAt = createdAt.orBlank(),
+            title = title.orBlank,
+            closedAt = closedAt.orBlank,
+            createdAt = createdAt.orBlank,
             user = (user ?: PullRequestDto.User()).mapToDomain
         )
 
     val PullRequestDto.User.mapToDomain
-        get() = PullRequest.User(avatarUrl.orBlank(), name = login.orBlank())
+        get() = PullRequest.User(avatarUrl.orBlank, name = login.orBlank)
 }

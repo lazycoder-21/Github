@@ -3,6 +3,7 @@ package lazycoder21.droid.pull_requests.presentation.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import lazycoder21.droid.pull_requests.domain.model.Loading
 import lazycoder21.droid.pull_requests.presentation.adapter.base.AbstractViewHolder
 import lazycoder21.droid.pull_requests.presentation.adapter.base.BaseItemModel
 import lazycoder21.droid.pull_requests.presentation.adapter.factory.ItemTypeFactory
@@ -38,7 +39,20 @@ class PullRequestRvAdapter(
     }
 
     fun addItems(items: List<BaseItemModel>) {
+        val loaderIndex = list.lastIndex
+        if (list.getOrNull(loaderIndex) is Loading) {
+            list.removeLast()
+            notifyItemRemoved(loaderIndex)
+        }
+
+        val prevSize = list.size
         list.addAll(items)
-        notifyDataSetChanged()
+        notifyItemRangeInserted(prevSize, items.size)
+    }
+
+    fun addLoadingState() {
+        val loaderIndex = list.lastIndex
+        list.add(Loading)
+        notifyItemInserted(loaderIndex)
     }
 }
