@@ -12,6 +12,7 @@ import lazycoder21.droid.common.recycler_view.InfiniteScrollListener
 import lazycoder21.droid.common.utils.isFirstPage
 import lazycoder21.droid.common.utils.showErrorMessage
 import lazycoder21.droid.common.utils.showIf
+import lazycoder21.droid.pull_requests.R
 import lazycoder21.droid.pull_requests.databinding.ActivityPullRequestBinding
 import lazycoder21.droid.pull_requests.domain.api_param_model.PullRequestParam
 import lazycoder21.droid.pull_requests.domain.model.PullRequest
@@ -31,9 +32,14 @@ class PullRequestActivity : AppCompatActivity() {
             setContentView(this.root)
         }
 
+        initActionbar()
         initRecyclerView()
         observeLiveData()
         loadData()
+    }
+
+    private fun initActionbar() = supportActionBar?.apply {
+        title = resources.getString(R.string.pull_request)
     }
 
     private fun initRecyclerView() {

@@ -5,4 +5,5 @@
     <string name="closed_at_s">Closed At: %s [%s]</string>
     <string name="userid_s">UserId: %s</string>
     <string name="title_s">Title: %s</string>
+    <string name="pull_request">Pull Requests</string>
 </resources>
