@@ -1,6 +1,7 @@
 package lazycoder21.droid.common.utils
 
 import android.content.Context
+import android.text.Html
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
@@ -23,7 +24,9 @@ fun Context.showErrorMessage(message: String) {
 }
 
 fun TextView.attributedText(@StringRes id: Int, vararg args: Any) {
-    text = String.format(
-        resources.getString(id), *args
+    text = Html.fromHtml(
+        String.format(
+            resources.getString(id), *args
+        )
     )
 }
