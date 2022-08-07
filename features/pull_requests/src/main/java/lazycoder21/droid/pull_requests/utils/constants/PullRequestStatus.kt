@@ -4,5 +4,5 @@ enum class PullRequestStatus(val status: String) {
     All("all"),
     Open("open"),
     Closed("closed"),
-    Default(All.status),
+    Default(Closed.status),
 }
