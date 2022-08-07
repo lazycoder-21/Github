@@ -44,4 +44,7 @@ dependencies {
     implementation Dependencies.GSON_CONVERTOR
     implementation Dependencies.OKHTTP
     implementation Dependencies.OKHTTP_LOGGING_INTERCEPTOR
+
+    testImplementation Dependencies.TEST_MOCK
+    testImplementation Dependencies.TEST_JUNIT
 }

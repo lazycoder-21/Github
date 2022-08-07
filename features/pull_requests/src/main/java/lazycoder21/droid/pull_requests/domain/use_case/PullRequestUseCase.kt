@@ -11,7 +11,6 @@ class PullRequestUseCase @Inject constructor(
     private val repository: IPullRequestRepository,
 ) {
 
-    //todo
     suspend fun fetchPullRequests(param: PullRequestParam): Flow<Resource<List<PullRequest>>> {
         return repository.fetchPullRequests(param)
     }
