@@ -15,8 +15,8 @@ class PullRequestViewHolder(
 
     override fun bind(element: PullRequest) = with(binding) {
         title.attributedText(R.string.title_s, element.title)
-        createdAt.attributedText(R.string.created_at_s, element.createdAt)
-        closedAt.attributedText(R.string.closed_at_s, element.closedAt)
+        createdAt.attributedText(R.string.created_at_s, element.createdAt.date)
+        closedAt.attributedText(R.string.closed_at_s, element.closedAt.date)
         userName.attributedText(R.string.userid_s, element.user.name)
         userImage.loadImage(element.user.avatarUrl)
     }
