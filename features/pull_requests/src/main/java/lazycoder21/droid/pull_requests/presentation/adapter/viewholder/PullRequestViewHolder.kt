@@ -2,6 +2,7 @@ package lazycoder21.droid.pull_requests.presentation.adapter.viewholder
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import lazycoder21.droid.common.utils.attributedString
 import lazycoder21.droid.common.utils.loadImage
 import lazycoder21.droid.pull_requests.R
 import lazycoder21.droid.pull_requests.databinding.RvPullRequestBinding
@@ -14,7 +15,7 @@ class PullRequestViewHolder(
 
     override fun bind(element: PullRequest) = with(binding) {
         title.text = element.title
-        createdAt.text = element.createdAt
+        createdAt.attributedString(R.string.created_at_s, element.createdAt)
         closedAt.text = element.closedAt
         userName.text = element.user.name
         userImage.loadImage(element.user.avatarUrl)
