@@ -5,6 +5,7 @@ import com.google.gson.Gson
 import lazycoder21.droid.common.enitity.Resource
 import lazycoder21.droid.common.enitity.RetrofitErrorMessage
 import lazycoder21.droid.common.enitity.StringHandler
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.HttpException
@@ -15,15 +16,25 @@ import retrofit2.create
 import java.io.IOException
 import java.net.SocketTimeoutException
 
+
 inline fun <reified T> buildApi(
     baseUrl: String = "https://api.github.com/"
 ): T {
-    val loggingInterceptor = HttpLoggingInterceptor()
-    loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
 
-    val okHttpClient = OkHttpClient.Builder()
-        .addInterceptor(loggingInterceptor)
-        .build()
+    val loggingInterceptor = HttpLoggingInterceptor().apply {
+        setLevel(HttpLoggingInterceptor.Level.BODY)
+    }
+    val headerInterceptor = Interceptor { chain ->
+        val builder = chain.request().newBuilder()
+        builder.header("Time-Zone", "Asia/Kolkata")
+        return@Interceptor chain.proceed(builder.build())
+    }
+
+    val okHttpClient = OkHttpClient.Builder().apply {
+        addInterceptor(headerInterceptor)
+        addInterceptor(loggingInterceptor)
+    }.build()
+
     return Retrofit.Builder()
         .baseUrl(baseUrl)
         .addConverterFactory(
