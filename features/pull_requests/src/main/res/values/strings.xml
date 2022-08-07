@@ -1,4 +1,8 @@
 <resources>
     <string name="enter_user_id">Enter User Id</string>
     <string name="repo_name">Repository Name</string>
+    <string name="created_at_s">Created At: %s</string>
+    <string name="closed_at_s">Closed At: %s</string>
+    <string name="userid_s">UserId: %s</string>
+    <string name="title_s">Title: %s</string>
 </resources>
