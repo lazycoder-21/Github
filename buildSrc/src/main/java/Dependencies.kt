@@ -57,4 +57,5 @@ object Dependencies {
     //test
     const val TEST_JUNIT = "junit:junit:4.12"
     const val TEST_MOCK = "io.mockk:mockk:1.11.0"
+    const val TEST_COROUTINES = "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.0"
 }

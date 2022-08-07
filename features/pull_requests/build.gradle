@@ -54,4 +54,5 @@ dependencies {
 
     testImplementation Dependencies.TEST_MOCK
     testImplementation Dependencies.TEST_JUNIT
+    testImplementation Dependencies.TEST_COROUTINES
 }
